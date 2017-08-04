@@ -14,6 +14,11 @@ namespace OpenGL_android_test01
 {
     class GLView1 : AndroidGameView
     {
+        float[] square_vertices;
+
+        const int N = 4;
+        
+
         public GLView1(Context context) : base(context)
         {
             // do not set context on render frame as we will be rendering
@@ -33,6 +38,8 @@ namespace OpenGL_android_test01
         {
             base.OnLoad(e);
 
+            square_vertices = new float[2*N];
+            Random();
             // Run the render loop
             Run();
         }
@@ -107,13 +114,18 @@ namespace OpenGL_android_test01
             SwapBuffers();
         }
 
-        float[] square_vertices = {
-            -0.5f, -0.5f,
-            0.5f, -0.5f,
-            -0.5f, 0.5f,
-            0.5f, 0.5f,
-        };
+        void Random()
+        {
+            Random r = new Random();
+            for(int i = 0; i < N; i++)
+            {
+                //NextDouble,0.0<=x<1.0
+                square_vertices[2 * i] = (float)r.NextDouble() * 2.0f - 1.0f;
+                square_vertices[2 * i + 1] = (float)r.NextDouble() * 2.0f - 1.0f;
 
+            }
+        }
+       
         byte[] square_colors = {
             255, 255,   0, 255,
             0,   255, 255, 255,
